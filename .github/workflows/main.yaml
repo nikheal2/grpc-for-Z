@@ -26,7 +26,7 @@ jobs:
           echo '::set-output name=LATEST_RELEASE::'$GRPC_LATEST
           echo "Latest Grpc version: "$GRPC_LATEST
           
-      - name: Get current Grpc release for Power
+      - name: Get current Grpc release for s390x
         id: current
         run: |
           GRPC_CURRENT=$(curl -s https://api.github.com/repos/IBM/grpc-for-Z/releases/latest | grep tag_name | cut -d '"' -f4)
