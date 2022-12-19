@@ -38,7 +38,7 @@ jobs:
             #Building grpc
             python3.9 -m pip install --upgrade pip
             echo "Building grpc ${{ inputs.release }}"
-            pip install grpcio==${{ inputs.release }} 
+            GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1 pip install --no-cache-dir grpcio==${{ inputs.release }} 
             
             WHEEL_PATH=$(find /root/.cache/pip/wheels/ -name "grpcio*.whl")
             WHEEL_NAME=$(basename $(find /root/.cache/pip/wheels/ -name "grpcio*.whl"))
