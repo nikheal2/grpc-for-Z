@@ -36,8 +36,9 @@ jobs:
             apt-get install python3.9 python3-pip python3-dev libpython3.9-dev -y
             
             #Building grpc
-            chmod +x ./build.sh
-            source ./build.sh
+            echo "Building grpc ${{ inputs.release }}"
+            chmod +x ./build.sh 
+            source ./build.sh ${{ inputs.release }}
             
             WHEEL_PATH=$(find /root/ -name "grpcio*")
             WHEEL_NAME=$(basename $(find /root/.local/lib/python3.9/site-packages/ -name "grpcio*"))
