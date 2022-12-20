@@ -31,7 +31,7 @@ jobs:
         run: |
           GRPC_CURRENT=$(curl -s https://api.github.com/repos/IBM/grpc-for-Z/releases/latest | grep tag_name | cut -d '"' -f4)
           echo '::set-output name=CURRENT_RELEASE::'$GRPC_CURRENT
-          echo "Current Grpc version on Power: "$GRPC_CURRENT
+          echo "Current Grpc version on IBMZ: "$GRPC_CURRENT
           
   build-new-release:
     needs: [check-release]
