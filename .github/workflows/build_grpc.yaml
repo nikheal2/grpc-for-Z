@@ -40,8 +40,8 @@ jobs:
             chmod +x ./build.sh 
             source ./build.sh ${{ inputs.release }}
             
-            WHEEL_PATH=$(find /root/ -name "grpcio*")
-            WHEEL_NAME=$(basename $(find /root/.local/lib/python3.9/site-packages/ -name "grpcio*"))
+            WHEEL_PATH=$(find /root/.cache/pip/wheels/ -name "grpcio*.whl")
+            WHEEL_NAME=$(basename $(find /root/.cache/pip/wheels/ -name "grpcio*.whl"))
             echo $WHEEL_PATH
             echo $WHEEL_NAME
             cp $WHEEL_PATH /artifacts/$WHEEL_NAME
@@ -54,7 +54,7 @@ jobs:
           tag: ${{ inputs.release }}
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
-          artifacts: ./artifacts/grpcio-${{ inputs.release }}-py3.9.egg-info
+          artifacts: ./artifacts/grpcio-${{ inputs.release }}-cp38-cp38-linux_s390x.whl
           name: ${{ inputs.release }}
           replacesArtifacts: true
           draft: false
