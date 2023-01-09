@@ -54,7 +54,7 @@ jobs:
           tag: ${{ inputs.release }}
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
-          artifacts: ./artifacts/grpcio-${{ inputs.release }}-cp38-cp38-linux_s390x.whl
+          artifacts: ./artifacts/grpcio-${{ inputs.release }}-cp39-cp39-linux_s390x.whl
           name: ${{ inputs.release }}
           replacesArtifacts: true
           draft: false
