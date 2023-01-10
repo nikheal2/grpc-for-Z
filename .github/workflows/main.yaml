@@ -38,4 +38,4 @@ jobs:
     if: ${{ needs.check-release.outputs.latest-release }} != ${{ needs.check-release.outputs.current-release }}
     uses: ./.github/workflows/build_grpc.yaml
     with:
-      release: 1.46.3
+      release: 1.46.5
