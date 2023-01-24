@@ -41,10 +41,10 @@ jobs:
             source ./build.sh ${{ inputs.release }}
             
             WHEEL_PATH=$(find / -name "grpcio*.whl")
-            WHEEL_NAME=$(basename $(find / -name "grpcio*.whl"))
+            #WHEEL_NAME=$(basename $(find / -name "grpcio*.whl"))
             echo $WHEEL_PATH
-            echo $WHEEL_NAME
-            cp $WHEEL_PATH /artifacts/$WHEEL_NAME
+            #echo $WHEEL_NAME
+            cp $WHEEL_PATH /artifacts/grpcio-${{ inputs.release }}-cp39-cp39-linux_s390x.whl
             ls /artifacts/            
                       
       - name: Create Release
