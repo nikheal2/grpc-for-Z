@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
 
     steps:
       - uses: actions/checkout@v2  
@@ -18,7 +18,7 @@ jobs:
         id: build
         with:
           arch: s390x
-          distro: ubuntu20.04
+          distro: ubuntu18.04
           
           # Create an artifacts directory
           setup: |
