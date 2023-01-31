@@ -18,7 +18,7 @@ jobs:
         id: build
         with:
           arch: s390x
-          distro: ubuntu20.04
+          distro: ubuntu22.04
           
           # Create an artifacts directory
           setup: |
