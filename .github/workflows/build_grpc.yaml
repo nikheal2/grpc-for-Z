@@ -39,8 +39,9 @@ jobs:
             echo "Building grpc ${{ inputs.release }}"
             #chmod +x ./build.sh 
             #source ./build.sh ${{ inputs.release }}
-            apt-get install -y openssl libssl-dev python3.9-distutils
+            #apt-get install -y openssl libssl-dev python3.9-distutils
             python3.9 -m pip install --upgrade pip
+            pip install pyOpenSSL
             GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1 python3.9 -m pip install grpcio==${{ inputs.release }}
             
             WHEEL_PATH=$(find / -name "grpcio*.whl")
