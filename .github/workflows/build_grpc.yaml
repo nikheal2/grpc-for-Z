@@ -34,7 +34,6 @@ jobs:
             apt-get install -y build-essential autoconf libtool pkg-config git software-properties-common curl 
             add-apt-repository ppa:deadsnakes/ppa -y
             apt-get install python3.9 python3-pip python3-dev  libpython3.9-dev -y
-            apt-get install openssl libssl-dev -y 
             
             #Building grpc
             echo "Building grpc ${{ inputs.release }}"
@@ -43,13 +42,14 @@ jobs:
             tar -zxvf glibc-2.29.tar.gz
             cd glibc-2.29
             mkdir glibc-build
-            apt-get install bison
+            apt-get install bison -y
             ../configure --prefix=/opt/glibc
             prefix=/opt/glibc
             mkdir -p $prefix/etc
             touch $prefix/etc/ld.so.conf
             make
             make install
+            apt-get install openssl libssl-dev -y 
             GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1 python3.9 -m pip install grpcio==${{ inputs.release }}
             WHEEL_PATH=$(find / -name "grpcio*.whl")
             #WHEEL_NAME=$(basename $(find / -name "grpcio*.whl"))
