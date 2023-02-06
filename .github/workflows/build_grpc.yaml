@@ -38,19 +38,13 @@ jobs:
             #Building grpc
             echo "Building grpc ${{ inputs.release }}"
             python3.9 -m pip install --upgrade pip
-            wget -c https://ftp.gnu.org/gnu/glibc/glibc-2.29.tar.gz
-            tar -zxvf glibc-2.29.tar.gz
-            cd glibc-2.29
-            mkdir glibc-build
-            apt-get install bison -y
-            ../configure --prefix=/opt/glibc
-            prefix=/opt/glibc
-            mkdir -p $prefix/etc
-            touch $prefix/etc/ld.so.conf
-            make
-            make install
-            apt-get install openssl libssl-dev -y 
-            GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1 python3.9 -m pip install grpcio==${{ inputs.release }}
+            apt-get install openssl libssl-dev -y
+            export REPO_ROOT=grpc
+            git clone -b v${{ inputs.release }} https://github.com/grpc/grpc $REPO_ROOT
+            cd $REPO_ROOT
+            git submodule update --init
+            python3.9 -m pip install -r requirements.txt
+            GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1 GRPC_PYTHON_BUILD_WITH_CYTHON=1 python3.9 -m pip install grpcio==${{ inputs.release }}
             WHEEL_PATH=$(find / -name "grpcio*.whl")
             #WHEEL_NAME=$(basename $(find / -name "grpcio*.whl"))
             echo $WHEEL_PATH
