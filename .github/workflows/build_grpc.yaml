@@ -33,12 +33,15 @@ jobs:
             apt-get update -y
             apt-get install -y build-essential autoconf libtool pkg-config git software-properties-common curl 
             add-apt-repository ppa:deadsnakes/ppa -y
-            apt-get install python3.9 python3-pip python3-dev python3.9-distutils libpython3.9-dev  -y
+            apt-get install python3.9 python3-pip python3-dev libpython3.9-dev  -y
             
             #Building grpc
             echo "Building grpc ${{ inputs.release }}"
-            chmod +x ./build.sh
-            source ./build.sh ${{ inputs.release }}
+            #chmod +x ./build.sh
+            #source ./build.sh ${{ inputs.release }}
+            apt-get install -y openssl libssl-dev python3.9-distutils
+            python3.9 -m pip install --upgrade pip
+            GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1  GRPC_PYTHON_BUILD_WITH_CYTHON=1 python3.9 -m pip install grpcio==${{ inputs.release }}
             WHEEL_PATH=$(find /root/.cache/pip/wheels/ -name "grpcio*.whl")
             WHEEL_NAME=$(basename $(find /root/.cache/pip/wheels/ -name "grpcio*.whl"))
             echo $WHEEL_PATH
