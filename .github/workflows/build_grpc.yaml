@@ -43,9 +43,9 @@ jobs:
             GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1 GRPC_PYTHON_BUILD_WITH_CYTHON=1 pip install grpcio==${{ inputs.release }} 
             
             WHEEL_PATH=$(find /root/.cache/pip/wheels/ -name "grpcio*.whl")
-            #WHEEL_NAME=$(basename $(find /root/.cache/pip/wheels/ -name "grpcio*.whl"))
+            WHEEL_NAME=$(basename $(find /root/.cache/pip/wheels/ -name "grpcio*.whl"))
             echo $WHEEL_PATH
-            #echo $WHEEL_NAME
+            echo $WHEEL_NAME
             cp $WHEEL_PATH /artifacts/$WHEEL_NAME
             ls /artifacts/            
                       
