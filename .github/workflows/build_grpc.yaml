@@ -45,10 +45,10 @@ jobs:
             git submodule update --init
             python3.9 -m pip install -r requirements.txt
             GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1 GRPC_PYTHON_BUILD_WITH_CYTHON=1 python3.9 -m pip install .
-            WHEEL_PATH=$(find / -name "grpcio*.whl")
-            #WHEEL_NAME=$(basename $(find / -name "grpcio*.whl"))
+            WHEEL_PATH=$(find /tmp/ -name "grpcio*.whl")
+            WHEEL_NAME=$(basename $(find /tmp/ -name "grpcio*.whl"))
             echo $WHEEL_PATH
-            #echo $WHEEL_NAME
+            echo $WHEEL_NAME
             cp $WHEEL_PATH /artifacts/grpcio-${{ inputs.release }}-cp39-cp39-linux_s390x.whl
             ls /artifacts/            
                       
