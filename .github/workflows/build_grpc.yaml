@@ -37,6 +37,7 @@ jobs:
             
             #Building grpc
             python3.9 -m pip install --upgrade pip
+            pip install cython>=0.29.8 coverage>=4.0 protobuf<5.0dev,>=4.21.3
             apt-get install openssl libssl-dev -y 
             echo "Building grpc ${{ inputs.release }}"
             GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1 GRPC_PYTHON_BUILD_WITH_CYTHON=1 pip install grpcio==${{ inputs.release }} 
