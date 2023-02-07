@@ -39,7 +39,9 @@ jobs:
             echo "Building grpc ${{ inputs.release }}"
             python3.9 -m pip install --upgrade pip
             apt-get install openssl libssl-dev -y
-            GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1 GRPC_PYTHON_BUILD_WITH_CYTHON=1 python3.9 -m pip install grpcio==${{ inputs.release }}
+            export GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1 
+            export GRPC_PYTHON_BUILD_WITH_CYTHON=1
+            python3.9 -m pip install grpcio==${{ inputs.release }}
             WHEEL_PATH=$(find /root/.cache/pip/wheels/ -name "grpcio*.whl")
             WHEEL_NAME=$(basename $(find /root/.cache/pip/wheels/ -name "grpcio*.whl"))
             echo $WHEEL_PATH
