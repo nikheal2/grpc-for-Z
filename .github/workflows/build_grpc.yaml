@@ -37,21 +37,9 @@ jobs:
             
             #Building grpc
             python3.9 -m pip install --upgrade pip
-            pip install cython>=0.29.8 coverage>=4.0
             apt-get install openssl libssl-dev -y 
             echo "Building grpc ${{ inputs.release }}"
-            wget -c https://ftp.gnu.org/gnu/glibc/glibc-2.29.tar.gz
-            tar -zxvf glibc-2.29.tar.gz
-            cd glibc-2.29
-            mkdir glibc-build
-            #apt-get install bison byacc -y
-            ../configure --prefix=/opt/glibc
-            prefix=/opt/glibc
-            mkdir -p $prefix/etc
-            touch $prefix/etc/ld.so.conf
-            make
-            make install
-            GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1 GRPC_PYTHON_BUILD_WITH_CYTHON=1 pip install grpcio==${{ inputs.release }} 
+            GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1 pip install grpcio==${{ inputs.release }} 
             WHEEL_PATH=$(find /root/.cache/pip/wheels/ -name "grpcio*.whl")
             WHEEL_NAME=$(basename $(find /root/.cache/pip/wheels/ -name "grpcio*.whl"))
             echo $WHEEL_PATH
