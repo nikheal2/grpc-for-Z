@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
 
     steps:
       - uses: actions/checkout@v2  
@@ -18,7 +18,7 @@ jobs:
         id: build
         with:
           arch: s390x
-          distro: ubuntu20.04
+          distro: ubuntu18.04
           
           # Create an artifacts directory
           setup: |
@@ -31,11 +31,26 @@ jobs:
       
           run: |            
             apt-get update -y
-            apt-get install -y build-essential autoconf libtool pkg-config git wget software-properties-common curl 
-            add-apt-repository ppa:deadsnakes/ppa -y
-            apt-get install python3.9 python3-pip python3-dev libpython3.9-dev -y
+            apt-get install -y build-essential libssl-dev zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libsqlite3-dev libgdbm-dev libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev libffi-dev wget curl git
+            #apt-get install -y build-essential autoconf libtool pkg-config git wget software-properties-common curl 
+            #add-apt-repository ppa:deadsnakes/ppa -y
+            #apt-get install python3.9 python3-pip python3-dev libpython3.9-dev -y
+            
+            # Installing python3.9
+            cd /tmp
+            wget https://www.python.org/ftp/python/3.9.11/Python-3.9.11.tgz
+            tar -xf Python-3.9.11.tgz
+            cd Python-3.9.11
+            ./configure --enable-optimizations
+            make -j $(nproc) && make altinstall
+            cd /
+            
+            # Installing pip
+            curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+            python3.9 get-pip.py
             
             #Building grpc
+            echo "Building grpc ${{ inputs.release }}"
             python3.9 -m pip install --upgrade pip
             apt-get install openssl libssl-dev -y 
             echo "Building grpc ${{ inputs.release }}"
