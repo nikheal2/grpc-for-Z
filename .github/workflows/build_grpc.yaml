@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2  
-      - uses: uraimo/run-on-arch-action@*
+      - uses: uraimo/run-on-arch-action@v2
         name: Install dependencies and build grpc
         id: build
         with:
@@ -64,7 +64,7 @@ jobs:
                       
       - name: Create Release
         id: create_release
-        uses: ncipollo/release-action@*
+        uses: ncipollo/release-action@v1
         with:
           tag: ${{ inputs.release }}
           token: ${{ secrets.GITHUB_TOKEN }}
