@@ -21,21 +21,16 @@ jobs:
       - name: Install dependencies and build grpc
         id: build
         run: |
-            docker run --rm --platform "linux/s390x"
-            --mount "type=bind,src=$(pwd),dst=/build"
-            -w "/build" s390x/python:3.9 /bin/bash -ec '
-            echo "Building grpc ${{ inputs.release }}";
-            apt-get install openssl libssl-dev -y ;
-            export GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1;
-            pip install --upgrade pip;
-            pip install --upgrade setuptools;
-            GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1 pip install grpcio==${{ inputs.release }};
-            WHEEL_PATH=$(find /root/.cache/pip/wheels/ -name "grpcio*.whl");
-            WHEEL_NAME=$(basename $(find /root/.cache/pip/wheels/ -name "grpcio*.whl"));
-            echo $WHEEL_PATH;
-            echo $WHEEL_NAME;
-            cp $WHEEL_PATH /build/;
-            ls /build/;'
+          docker run --rm --platform "linux/s390x"
+          --mount "type=bind,src=$(pwd),dst=/build"
+          -w "/build" s390x/python:3.9 /bin/bash -ec '
+          export GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1;
+          pip install --upgrade pip;
+          pip install --upgrade setuptools;
+          GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1 pip install grpcio==${{ inputs.release }};
+          WHEEL_PATH=$(find /root/.cache/pip/wheels/ -name "grpcio*.whl");
+          echo $WHEEL_PATH;
+          cp $WHEEL_PATH /build/;' 
             
       - name: Capture the file
         id: capture
