@@ -7,7 +7,7 @@ on:
 
 jobs:
   check-release:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     
     outputs:
       latest-release: ${{ steps.latest.outputs.LATEST_RELEASE }}
