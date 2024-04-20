@@ -7,7 +7,7 @@ on:
 
 jobs:
   check-release:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     
     outputs:
       latest-release: ${{ steps.latest.outputs.LATEST_RELEASE }}
@@ -38,4 +38,4 @@ jobs:
     if: ${{ needs.check-release.outputs.latest-release }} != ${{ needs.check-release.outputs.current-release }}
     uses: ./.github/workflows/build_grpc.yaml
     with:
-      release: 1.46.4
+      release: 1.58.0
