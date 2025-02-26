@@ -6,7 +6,12 @@ on:
       release:
         required: true
         type: string
-
+  workflow_dispatch:
+    inputs:
+      release:
+        description: 'Release version of grpcio to build'
+        required: true
+        type: string
 jobs:
   build:
     runs-on: ubuntu-latest
